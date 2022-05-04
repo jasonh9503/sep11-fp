@@ -8,7 +8,12 @@ kaboom();
 
 loadSprite("elephant","https://kaboomjs.com/sprites/bag.png")
 loadSprite("obstacle","https://kaboomjs.com/sprites/snow.png")
+scene("game", () => {
+    
 
+var obstacleSpeed = -5
+var obstacleStartpos = width()-120
+var score = 0
 const player = add([
   // list of components
   sprite("elephant"),
@@ -17,10 +22,42 @@ const player = add([
   body()
 ])
 
-add({
+function makeObstacles(){
+add([
     sprite("obstacle"),
-    pos(width() - 100, 400),
+    pos(obstacleStartpos, rand(10,200)),
+    area(),
+    "obstacle"
+])
+add([
+    sprite("obstacle"),
+    pos(obstacleStartpos, rand(10,590)),
+    area(),
+    "obstacle"
+])
+add([
+    sprite("obstacle"),
+    pos(obstacleStartpos, rand(10,590)),
+    area(),
+    "obstacle"
+])
+add([
+    sprite("obstacle"),
+    pos(obstacleStartpos, rand(480,590)),
+    area(),
+    "obstacle"
+])
+}
+action("obstacle", (obstacle) => {
+    obstacle.move(-500, 0);
+});
+loop(1.5, () => {
+    makeObstacles();
 })
+player.collides("obstacle", () => {
+    go("gameover")
+    
+});
 
 add([
 	rect(width(), 48),
@@ -28,11 +65,29 @@ add([
 	outline(4),
 	area(),
 	solid(),
-	color(255, 200, 255),
+	color(0, 0, 255),
 ])
-
+add([
+	rect(width(), 48),
+	pos(0, 0),
+	outline(4),
+	area(),
+	solid(),
+	color(0, 0, 255),
+])
 keyPress("space", () => {
-    player.jump();
+        player.jump();
+    
 });
+})
+scene("gameover", () => {
+    add([
+        text("GAME OVER")
+    ])
+    keyPress("space", () => {
+        go("game")
+    })
+})
+go("game");
 
 </script>
