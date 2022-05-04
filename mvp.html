@@ -8,12 +8,12 @@ kaboom();
 
 loadSprite("elephant","https://kaboomjs.com/sprites/bag.png")
 loadSprite("obstacle","https://kaboomjs.com/sprites/snow.png")
-scene("game", () => {
+scene("dumbogame", () => {
     
 
 var obstacleSpeed = -5
 var obstacleStartpos = width()-120
-var score = 0
+let score = 0
 const player = add([
   // list of components
   sprite("elephant"),
@@ -55,7 +55,7 @@ loop(1.5, () => {
     makeObstacles();
 })
 player.collides("obstacle", () => {
-    go("gameover")
+    go("endgame")
     
 });
 
@@ -80,14 +80,14 @@ keyPress("space", () => {
     
 });
 })
-scene("gameover", () => {
+scene("endgame", () => {
     add([
         text("GAME OVER")
     ])
     keyPress("space", () => {
-        go("game")
+        go("dumbogame")
     })
 })
-go("game");
+go("dumbogame");
 
 </script>
