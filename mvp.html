@@ -41,7 +41,7 @@ const player = add([// Create dumbo sprite
 ])
 
 function makeObstacles(){// Creates 5 obstacles in random positions but on the same x axis
-    for(var i = 1; i <= usernumBlocks; i++){
+    for(var i = 1; i <= usernumBlocks; i++){//Loop that will creates the amount of blocks that the user decides
         add([
         sprite("obstacle"),
         pos(obstacleStartpos, rand(48,height()-70)),
