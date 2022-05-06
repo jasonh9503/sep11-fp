@@ -5,11 +5,29 @@ import kaboom from "https://unpkg.com/kaboom/dist/kaboom.mjs";
 
 // initialize kaboom context
 kaboom();
-
+var usernumBlocks = prompt("how many blocks would you like to try and avoid?")
+var userBlockspeed = prompt("What would you like your difficulty to be from 200-1000?(anything under 200 would likely be too easy)")
+var Blockspersecond = prompt("After how many seconds do you want new blocks to show up(0.0-2.0)?")
 loadSprite("elephant","https://kaboomjs.com/sprites/bag.png")
 loadSprite("obstacle","https://kaboomjs.com/sprites/snow.png")
+scene("StartScreen", () => {
+    add([    
+        text("Flappy Dumbo"),
+        pos(center()),
+        origin("center"),
+    ])
+    add([
+        text("Click Space to Start Game", {
+            size: 48,
+        }),
+        pos(width()/2,height()/2+100),
+        origin("center")
+    ])
+        keyPress("space", () => {
+        go("dumbogame")
+        })
+})
 scene("dumbogame", () => {
-    
 
 var obstacleSpeed = -5
 var obstacleStartpos = width()-120
@@ -22,42 +40,20 @@ const player = add([// Create dumbo sprite
   body()
 ])
 
-function makeObstacles(){// Creates 4 obstacles in random positions but on the same x axis
-add([
-    sprite("obstacle"),
-    pos(obstacleStartpos, rand(10,200)),
-    area(),
-    "obstacle"
-])
-add([
-    sprite("obstacle"),
-    pos(obstacleStartpos, rand(10,height()-48)),
-    area(),
-    "obstacle"
-])
-add([
-    sprite("obstacle"),
-    pos(obstacleStartpos, rand(10,height()-48)),
-    area(),
-    "obstacle"
-])
-add([
-    sprite("obstacle"),
-    pos(obstacleStartpos, rand(10,height()-48)),
-    area(),
-    "obstacle"
-])
-add([
-    sprite("obstacle"),
-    pos(obstacleStartpos, rand(500,height()-48)),
-    area(),
-    "obstacle"
-])
+function makeObstacles(){// Creates 5 obstacles in random positions but on the same x axis
+    for(var i = 1; i <= usernumBlocks; i++){
+        add([
+        sprite("obstacle"),
+        pos(obstacleStartpos, rand(48,height()-70)),
+        area(),
+        "obstacle"
+        ])
+    }
 }
 action("obstacle", (obstacle) => {// Lets the obstacle move from right to left at whatever speed you choose
-    obstacle.move(-500, 0);
+    obstacle.move(-1 * userBlockspeed, 0);
 });
-loop(1.5, () => {// Creates 4 obstacles every 1.5 seconds
+loop(Blockspersecond, () => {// Creates 4 obstacles every 1.5 seconds
     makeObstacles();
 })
 player.collides("obstacle", () => {// When the player hits a obstacle go to game over screen
@@ -88,12 +84,15 @@ keyPress("space", () => {// Jump when spac bar is pressed
 })
 scene("endgame", () => {// Game over screen
     add([
-        text("GAME OVER")
+        text("GAME OVER"),
+        pos(center()),
+        origin("center")
     ])
     keyPress("space", () => {
         go("dumbogame")
     })
 })
-go("dumbogame");// Start dumbo game
+go("StartScreen")//Starter Screen
+
 
 </script>
