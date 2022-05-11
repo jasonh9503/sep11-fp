@@ -6,7 +6,7 @@ import kaboom from "https://unpkg.com/kaboom/dist/kaboom.mjs";
 // initialize kaboom context
 kaboom();
 
-var usernumBlocks = prompt("how many blocks would you like to try and avoid?")
+var usernumBlocks = prompt("How many blocks would you like to try and avoid(any even number?")
 var userBlockspeed = prompt("What would you like your difficulty to be from 400-1500?(anything under 400 would likely be too easy)")
 var Blockspersecond = prompt("After how many seconds do you want new blocks to show up(0.0-2.0)?")
 loadSprite("elephant","https://kaboomjs.com/sprites/bag.png")
@@ -44,8 +44,8 @@ onUpdate("obstacle", (obstacle) => {
 
     if (obstacle.passed === false && obstacle.pos.x < player.pos.x) {
       obstacle.passed = true;
-      score += 1;
-      scoreLabel.text = "Score: " + score;
+      score += (1/usernumBlocks);
+      scoreLabel.text = "Score: " + Math.ceil(score);
     }
 });
 const player = add([// Create dumbo sprite
@@ -61,7 +61,7 @@ function makeObstacles(){// Creates 5 obstacles in random positions but on the s
     for(var i = 1; i <= usernumBlocks; i++){//Loop that will creates the amount of blocks that the user decides
         add([
         sprite("obstacle"),
-        pos(obstacleStartpos, rand(48,height()-88)),
+        pos(obstacleStartpos, rand(48,height()-98)),
         "obstacle",
         area(),
         {passed: false}
@@ -71,7 +71,7 @@ function makeObstacles(){// Creates 5 obstacles in random positions but on the s
 action("obstacle", (obstacle) => {// Lets the obstacle move from right to left at whatever speed you choose
     obstacle.move(-1 * userBlockspeed, 0);
 });
-loop(Blockspersecond, () => {// Creates 4 obstacles every 1.5 seconds
+loop(Blockspersecond, () => {// Creates user input amount of obstacles in however many second intervals the user decides
     makeObstacles();
 })
 player.collides("obstacle", () => {// When the player hits a obstacle go to game over screen
