@@ -29,7 +29,6 @@ scene("StartScreen", () => {
         })
 })
 scene("dumbogame", () => {
-
 var obstacleSpeed = -5
 var obstacleStartpos = width()-120
 const scoreLabel = add([
@@ -114,6 +113,7 @@ scene("endgame", () => {// Game over screen
         ])
     keyPress("space", () => {
         go("dumbogame")
+        score = 0
     })
 })
 go("StartScreen")//Starter Screen
