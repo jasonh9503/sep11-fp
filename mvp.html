@@ -5,7 +5,7 @@ import kaboom from "https://unpkg.com/kaboom/dist/kaboom.mjs";
 
 // initialize kaboom context
 kaboom();
-
+var score = 0
 var usernumBlocks = prompt("How many blocks would you like to try and avoid(any even number)?")
 var userBlockspeed = prompt("What would you like your difficulty to be from 400-1500?(anything under 400 would likely be too easy)")
 var Blockspersecond = prompt("After how many seconds do you want new blocks to show up(0.0-2.0)?")
@@ -32,7 +32,6 @@ scene("dumbogame", () => {
 
 var obstacleSpeed = -5
 var obstacleStartpos = width()-120
-var score = 0
 const scoreLabel = add([
     text("Score: " + score, {
         size: 48
@@ -106,6 +105,13 @@ scene("endgame", () => {// Game over screen
         pos(center()),
         origin("center")
     ])
+    add([
+        text("Your score: "+score, {
+            size: 45,
+        }),
+        pos(width()/2,height()/2 + 100),
+        origin("center")
+        ])
     keyPress("space", () => {
         go("dumbogame")
     })
