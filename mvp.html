@@ -106,12 +106,19 @@ scene("endgame", () => {// Game over screen
     ])
     add([
         text("Your score: "+score, {
-            size: 45,
+            size: 44,
         }),
         pos(width()/2,height()/2 + 100),
         origin("center")
         ])
-    keyPress("space", () => {
+    add([
+        text("Click R to play again", {
+            size: 40,
+        }),
+        pos(width()/2,height()/2 + 200),
+        origin("center")
+        ])
+    keyPress("r", () => {
         go("dumbogame")
         score = 0
     })
