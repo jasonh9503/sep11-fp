@@ -4,7 +4,9 @@
 import kaboom from "https://unpkg.com/kaboom/dist/kaboom.mjs";
 
 // initialize kaboom context
-kaboom();
+kaboom({
+    background: [ 0 ]
+});
 var score = 0
 var usernumBlocks = prompt("How many blocks would you like to try and avoid per wave(any even number)?")
 var userBlockspeed = prompt("What would you like your difficulty to be from 500-1500?(The speed of the game)")
@@ -30,7 +32,7 @@ scene("StartScreen", () => {
 })
 scene("dumbogame", () => {
 var obstacleSpeed = -5
-var obstacleStartpos = width()-120
+var obstacleStartpos = width()-50
 const scoreLabel = add([
     text("Score: " + score, {
         size: 48
